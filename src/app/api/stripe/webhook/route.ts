@@ -28,9 +28,11 @@ export const POST = async (request: Request) => {
       if (!event.data.object.id) {
         throw new Error("Subscription ID not found");
       }
-      const { subscription, subscription_details, customer } = event.data
-        .object as unknown as {
+      const { customer } = event.data.object as unknown as {
         customer: string;
+      };
+      const { subscription, subscription_details } = event.data.object
+        .parent as unknown as {
         subscription: string;
         subscription_details: {
           metadata: {
